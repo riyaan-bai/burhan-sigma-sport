@@ -1,4 +1,4 @@
-*Tugas 1*
+*Tugas 2*
 Tautan menuju aplikasi PWS yang sudah di deploy: 
 https://riyaan-baihaqi-burhansigmasport.pbp.cs.ui.ac.id/
 
@@ -35,7 +35,7 @@ Request client diterima oleh urls.py level proyek sebagai gerbang utama atau dis
 
 6. Menurut saya, penjelasan yang diberikan sudah sangat jelas dan sangat membantu. Terima kasih kakak-kakak asisten dosen yang telah menyusun tutorial ini.
 
-*Tugas 2* 
+*Tugas 3* 
 
 1. Dalam pengimplementasian sebuah platform, data delivery diperlukan untuk memastikan data dapat sampai ke tujuan dengan cepat, aman, dan konsisten. Tanpa mekanisme pengiriman data yang baik, informasi yang dikumpulkan tidak akan bisa dimanfaatkan secara optimal. Data delivery juga menjamin kecepatan arus informasi, mendukung skalabilitas saat menangani data dalam jumlah besar, serta menjaga keamanan dan kepatuhan terhadap regulasi. Hal ini akan meningkatkan pengalaman pengguna dengan menghadirkan informasi yang selalu relevan.
 
@@ -55,3 +55,19 @@ Dari sisi keamanan, saya menambahkan konfigurasi CSRF_TRUSTED_ORIGINS di setting
 ![alt text](image-1.png) --> XML by ID
 ![alt text](image-2.png) --> JSON
 ![alt text](image-3.png) --> JSON by ID
+
+*Tugas 4* 
+
+1. AuthenticationForm adalah kelas formulir siap pakai dari Django dengan tujuan untuk menangani proses login pengguna (autentikasi). Ketika data dikirimkan melalui formulir, Django secara otomatis akan melakukan validasi dengan memeriksa apakah kombinasi username dan password yang dimasukkan cocok dengan data pengguna yang ada di database dan apakah akun pengguna tersebut dalam status aktif. Kelebihan dari kelas formulir ini ialah memiliki keamanan yang terjamin serta mudah diimplementasikan karena terintegrasi secara mulus dengan ekosistem autentikasi Django lainnya serta dapat dimodifikasi sesuai kebutuhan. Kekurangannya ialah tampilannya yang generik dan minimalis sehingga untuk mendapatkan tampilan formulir yang menarik perlu dilakukan rendering setiap kolom secara manual.
+
+2. Autentikasi ialah proses verifikasi identitas untuk memastikan identitas yang diberikan sesuai. Proses autentikasi akan memvalidasi kredensial pengguna seperti meminta input berupa username dan password. Sedangkan otorisasi ialah proses untuk menentukan hak akses per masing-masing identitas. Proses otorisasi akan mengizinkan tindakan pengguna sesuai peran atau perizinan yang ada.
+
+3. *Cookies* memiliki kelebihan diantaranya mudah untuk diimplementasikan, beban server yang ringan, serta persisten. Kekurangannya, cookies memiliki keamanan yang rendah karena data yang bersifat transparan, ukuran yang terbatas, serta memberikan beban lebih terhadap bandwidth. *Session* memiliki kelebihan diantaranya memiliki keamanan lebih tinggi karena disimpan di server, kapasitas penyimpanan lebih besar, serta dapat dikontrol secara terpusat. Kekurangannya, session akan memberikan beban yang lebih kepada server, bergantung pada cookies, serta manajemennya yang lebih sulit.
+
+4. Secara default, penggunaan cookies tidak aman karena disimpan di klien (browser) sehingga rentan terhadap berbagai serangan siber. Potensial serangan yang dapat terjadi diantaranya Cross Site Scripting (XSS), Cross-Site Request Forgery (CSRF), dan Session Hijacking. Cara Django menangani ketiga risiko ini diantaranya melakukan HTML Escaping pada semua variabel yang di render (untuk mencegah Cross Site Scripting (XSS)), menghasilkan token CSRF yang unik untuk setiap pengguna (untuk mencegah CSRF), serta mengonfigurasi atribut keamanan pada cookies.
+
+5. Pertama,saya melakukan aktivasi virtual environment untuk memastikan isolasi dependensi dan menjaga integritas proyek. Setelah environment siap, fungsionalitas registrasi pengguna diimplementasikan dengan memanfaatkan form bawaan Django yakni UserCreationForm, di dalam views.py untuk mengelola validasi data dan pembuatan akun baru. Proses ini didukung oleh pembuatan template antarmuka register.html serta pendaftaran path URL yang sesuai pada urls.py untuk menangani permintaan pendaftaran dari pengguna.
+
+Selanjutnya, saya membuat fungsi login dan logout untuk autentikasi. Proses login diimplementasikan melalui sebuah fungsi di views.py yang menggunakan AuthenticationForm, didukung oleh template login.html, serta konfigurasi URL yang relevan. Sementara itu, fungsi logout juga saya kembangkan dan tautannya diintegrasikan ke dalam template utama aplikasi untuk memudahkan akses. Setelah mekanisme autentikasi ini terbentuk, sistem otorisasi diterapkan untuk membatasi akses ke halaman-halaman tertentu, sehingga hanya pengguna yang terautentikasi yang dapat mengakses konten yang bersifat privat.
+
+Selanjutnya, saya juga memanfaatkan cookies untuk manajemen state khususnya untuk mencatat dan menampilkan informasi waktu login terakhir. Logika untuk membuat cookie saat login berhasil dan menghapusnya saat logout diimplementasikan di dalam views.py. Pada tahap akhir, saya melakukan integrasi antara model User bawaan Django dengan model data aplikasi. Hal ini melibatkan modifikasi pada views.py untuk mengaitkan data spesifik dengan pengguna yang sedang aktif, serta penyesuaian pada template terkait, seperti main.html dan product_detail.html, untuk memastikan penyajian data yang terpersonalisasi sesuai dengan pengguna yang mengaksesnya.
