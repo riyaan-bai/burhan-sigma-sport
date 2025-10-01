@@ -1,4 +1,4 @@
-*Tugas 2*
+## *Tugas 2*
 Tautan menuju aplikasi PWS yang sudah di deploy: 
 https://riyaan-baihaqi-burhansigmasport.pbp.cs.ui.ac.id/
 
@@ -35,7 +35,7 @@ Request client diterima oleh urls.py level proyek sebagai gerbang utama atau dis
 
 6. Menurut saya, penjelasan yang diberikan sudah sangat jelas dan sangat membantu. Terima kasih kakak-kakak asisten dosen yang telah menyusun tutorial ini.
 
-*Tugas 3* 
+## *Tugas 3* 
 
 1. Dalam pengimplementasian sebuah platform, data delivery diperlukan untuk memastikan data dapat sampai ke tujuan dengan cepat, aman, dan konsisten. Tanpa mekanisme pengiriman data yang baik, informasi yang dikumpulkan tidak akan bisa dimanfaatkan secara optimal. Data delivery juga menjamin kecepatan arus informasi, mendukung skalabilitas saat menangani data dalam jumlah besar, serta menjaga keamanan dan kepatuhan terhadap regulasi. Hal ini akan meningkatkan pengalaman pengguna dengan menghadirkan informasi yang selalu relevan.
 
@@ -56,7 +56,7 @@ Dari sisi keamanan, saya menambahkan konfigurasi CSRF_TRUSTED_ORIGINS di setting
 ![alt text](image-2.png) --> JSON
 ![alt text](image-3.png) --> JSON by ID
 
-*Tugas 4* 
+## *Tugas 4* 
 
 1. AuthenticationForm adalah kelas formulir siap pakai dari Django dengan tujuan untuk menangani proses login pengguna (autentikasi). Ketika data dikirimkan melalui formulir, Django secara otomatis akan melakukan validasi dengan memeriksa apakah kombinasi username dan password yang dimasukkan cocok dengan data pengguna yang ada di database dan apakah akun pengguna tersebut dalam status aktif. Kelebihan dari kelas formulir ini ialah memiliki keamanan yang terjamin serta mudah diimplementasikan karena terintegrasi secara mulus dengan ekosistem autentikasi Django lainnya serta dapat dimodifikasi sesuai kebutuhan. Kekurangannya ialah tampilannya yang generik dan minimalis sehingga untuk mendapatkan tampilan formulir yang menarik perlu dilakukan rendering setiap kolom secara manual.
 
@@ -71,3 +71,26 @@ Dari sisi keamanan, saya menambahkan konfigurasi CSRF_TRUSTED_ORIGINS di setting
 Selanjutnya, saya membuat fungsi login dan logout untuk autentikasi. Proses login diimplementasikan melalui sebuah fungsi di views.py yang menggunakan AuthenticationForm, didukung oleh template login.html, serta konfigurasi URL yang relevan. Sementara itu, fungsi logout juga saya kembangkan dan tautannya diintegrasikan ke dalam template utama aplikasi untuk memudahkan akses. Setelah mekanisme autentikasi ini terbentuk, sistem otorisasi diterapkan untuk membatasi akses ke halaman-halaman tertentu, sehingga hanya pengguna yang terautentikasi yang dapat mengakses konten yang bersifat privat.
 
 Selanjutnya, saya juga memanfaatkan cookies untuk manajemen state khususnya untuk mencatat dan menampilkan informasi waktu login terakhir. Logika untuk membuat cookie saat login berhasil dan menghapusnya saat logout diimplementasikan di dalam views.py. Pada tahap akhir, saya melakukan integrasi antara model User bawaan Django dengan model data aplikasi. Hal ini melibatkan modifikasi pada views.py untuk mengaitkan data spesifik dengan pengguna yang sedang aktif, serta penyesuaian pada template terkait, seperti main.html dan product_detail.html, untuk memastikan penyajian data yang terpersonalisasi sesuai dengan pengguna yang mengaksesnya.
+
+## "Tugas 5"
+1. Berdasarkan urutan CSS Selector dari yang paling tinggi ke yang paling rendah, selector diurutkan berdasarkan tingkat kekhususannya dimulai dari inline styles, kemudian ID selectors, kemudian class, attribute, dan pseudo-class selectors, dan terakhir type selectors dan pseudo-elements selectors. Inline styles memiliki prioritas utama dikarenakan ditulis langsung pada atribut style di dalam elemen HTML. Prioritas berikutnya ialah selector melalui ID yang menyeleksi berdasarkan id uniknya dan biasa ditandai dengan tanda pagar. Prioritas berikutnya ialah class selectors, attribute selectors, serta pseudo-class selectors yang memiliki kedudukan yang sama. Class selectors menyeleksi berdasarkan class tertentu (ditandai dengan titik), attribute selectors menyeleksi berdasarkan atribut tertentu (ditandai dengan kurung siku), serta pseudo-class selectors menyeleksi elemen dalam kondisi tertentu (ditandai dengan titik dua (:)). Prioritas terakhir ialah type selectors dan pseudo-element selectors yang memiliki kedudukan yang sama. Type selectors menyeleksi berdasarkan jenis HTML tertentu serta pseudo-elements berdasarkan bagian tertentu dari suatu elemen. 
+
+2. Responsive design penting dalam pengembangan aplikasi web karena memastikan pengalaman pengguna (UX) optimal di berbagai perangkat dimulai dari desktop, tablet, hingga smartphone. Tanpa desain yang responsif, situs web yang terlihat bagus dan pas di layar yang lebih besar akan sulit dibaca dan dinavigasi di layar kecil. Hal ini dapat membuat pengguna meninggalkan situs. Dengan menerapkan responsive design, elemen-elemen seperti tata letak, gambar, dan ukuran font secara otomatis menyesuaikan diri dengan ukuran layar sehingga konten tetap mudah diakses dan fungsional di perangkat apa pun.
+
+Contoh aplikasi yang sudah menerapkan responsive design dengan baik ialah Detik.com yang saat diakses melalui desktop, tampilannya akan menyajikan beberapa kolom berita dan menu navigasi yang lengkap. Namun ketika dibuka di smartphone, tata letaknya berubah menjadi satu kolom yang lebih sederhana, dan menu navigasinya disembunyikan di dalam ikon "hamburger" untuk menghemat ruang. Sebaliknya, contoh situs yang belum sepenuhnya responsif ialah siakng karena saat dibuka di perangkat seluler hanya menampilkan versi desktop yang diperkecil sehingga teksnya menjadi sangat kecil dan tautannya sulit untuk diklik tanpa memperbesar tampilan.
+
+3.  Padding adalah ruang transparan di antara konten elemen (seperti teks atau gambar) dan border-nya. Sedangkan border adalah garis yang mengelilingi padding dan konten. Terakhir, margin adalah ruang transparan di luar border yang berfungsi untuk menciptakan jarak antara elemen tersebut dengan elemen lainnya.
+
+Untuk mengimplementasikannya, dapat menggunakan properti masing-masing. Misalnya, untuk sebuah elemen div, kodenya dapat dibuat sebagai berikut: 
+
+div { padding: 15px; border: 2px solid gray; margin: 20px; }. 
+
+Kode ini akan memberikan ruang sebesar 15 piksel di dalam border, border abu-abu solid setebal 2 piksel di sekelilingnya, dan jarak sebesar 20 piksel dari elemen lain di luarnya.
+
+4. Flexbox (Flexible Box Layout) adalah model tata letak satu dimensi yang dirancang untuk mengatur elemen-elemen dalam sebuah baris atau kolom. Kegunaan utamanya ialah untuk mendistribusikan ruang dan menyelaraskan item di dalam container bahkan di kondisi dinamis. Flexbox ideal digunakan sebagai komponen aplikasi yang lebih kecil dan tata letak yang lebih sederhana, seperti mengatur menu navigasi atau memusatkan elemen secara vertikal. 
+
+​Selain flexbox, terdapat pula grid layout yang merupakan model tata letak dua dimensi yang memungkinkan untuk mengatur elemen dalam baris dan kolom secara bersamaan, seperti membuat tabel. Grid sangat cocok untuk tata letak halaman yang lebih besar dan kompleks, seperti mengatur struktur utama sebuah situs web yang terdiri dari header, sidebar, konten utama, dan footer.
+
+5. Saya memulai dengan integrasi framework Tailwind CSS ke dalam template dasar base.html untuk menyediakan fondasi styling di seluruh aplikasi. Selanjutnya, saya fokus pada implementasi fungsionalitas manajemen produk. Fitur "Edit Produk" dikembangkan terlebih dahulu, yang melibatkan pembuatan template baru edit_product.html, penambahan logika pada views.py untuk menangani pengambilan dan pembaruan data, serta pendaftaran path di urls.py. Kemudian sebuah tombol edit kemudian ditambahkan ke main.html untuk menghubungkan ke halaman tersebut. Menggunakan alur kerja yang serupa, fungsionalitas "Hapus Produk" juga diimplementasikan, yang juga memerlukan modifikasi pada views.py dan urls.py serta penambahan tombol aksi di antarmuka utama.
+
+Untuk meningkatkan struktur navigasi dan antarmuka pengguna, komponen navbar dibuat dalam berkas terpisah (navbar.html) dan kemudian diintegrasikan ke dalam main.html menggunakan template tag include. Langkah teknis berikutnya adalah konfigurasi file statis aplikasi. Hal ini dicapai dengan memodifikasi settings.py untuk mendaftarkan direktori statis dan membuat sebuah root folder baru bernama static. Direktori ini digunakan untuk menyimpan aset global seperti global.css dan file gambar. Sebagai langkah akhir, styling kustom dari global.css diterapkan pada masing-masing halaman HTML untuk memastikan kesesuaian visual dan fungsionalitas antarmuka.

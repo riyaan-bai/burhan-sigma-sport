@@ -1,21 +1,91 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>{{ product.name }} - Burhan Sigma Sport</title>
+{% endblock meta %}
+
 {% block content %}
-<p><a href="{% url 'main:show_main' %}"><button>← Back to Product List</button></a></p>
+<div class="bg-gray-50 w-full min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Back Navigation -->
+        <div class="mb-6">
+            <a href="{% url 'main:show_main' %}" class="text-gray-600 hover:text-blue-600 font-medium transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Back to Products
+            </a>
+        </div>
+        
+        <!-- Product Detail -->
+        <article class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+            
+            <!-- Featured Image -->
+            {% if product.thumbnail %}
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="{{ product.thumbnail }}" 
+                         alt="{{ product.name }}" 
+                         class="w-full h-full object-cover">
+                </div>
+            {% endif %}
 
-<h1>{{ product.name }}</h1>
-<p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %}</p>
+            <!-- Header -->
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                        {{ product.get_category_display }}
+                    </span>
+                    {% if product.is_featured %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                            ⭐ Featured
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-2">
+                    {{ product.name }}
+                </h1>
+                <p class="text-lg text-gray-500 mb-4">{{ product.brand }}</p>
+                
+                <p class="text-4xl font-extrabold text-blue-600">
+                    Rp {{ product.price|floatformat:0 }}
+                </p>
+            </div>
 
-{% if product.thumbnail %}
-<img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
-<br /><br />
-{% endif %}
+            <!-- Description -->
+            <div class="px-6 sm:px-8 pb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Product Description</h2>
+                <div class="prose prose-lg max-w-none">
+                    <div class="text-gray-700 leading-relaxed whitespace-pre-line text-base">
+                        {{ product.description }}
+                    </div>
+                </div>
+            </div>
 
-<p>{{ product.description }}</p>
-
-{% if product.user %}
-    <p>Author: {{ product.user.username }}</p>
-{% else %}
-    <p>Author: Anonymous</p>
-{% endif %}
+            <!-- Author & Actions -->
+            <div class="border-t border-gray-200 p-6 sm:p-8 bg-gray-50">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500">Added by</p>
+                        <div class="font-medium text-gray-900">
+                            {% if product.user %}
+                                {{ product.user.username }}
+                            {% else %}
+                                Anonymous
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if user.is_authenticated and product.user == user %}
+                        <div class="flex space-x-3">
+                            <a href="{% url 'main:edit_product' product.id %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-blue-600 transition-colors">Edit</a>
+                            <a href="{% url 'main:delete_product' product.id %}" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent text-sm font-medium text-white rounded-md hover:bg-red-700 transition-colors">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
 {% endblock content %}
