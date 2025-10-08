@@ -7,7 +7,7 @@ class Product(models.Model):
     CATEGORY_CHOICES = [
         ('sportswear', 'Sportswear'),
         ('sports shoes & sandals', 'Sports Shoes & Sandals'),
-        ('sports sccessories', 'Sports Accessories'),
+        ('sports accessories', 'Sports Accessories'),
         ('sports equipment', 'Sports Equipment'),
         ('health & fitness support', 'Health & Fitness Support'),
         ('protective gear', 'Protective Gear'),

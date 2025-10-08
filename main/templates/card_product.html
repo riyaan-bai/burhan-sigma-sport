@@ -1,6 +1,5 @@
 {% load static %}
-<article class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
-  <!-- Thumbnail -->
+<article id="product-card-{{ product.id }}" class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
   <div class="aspect-w-3 aspect-h-2">
     {% if product.thumbnail %}
       <img src="{{ product.thumbnail }}" alt="{{ product.name }}" class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
@@ -49,7 +48,7 @@
         {% if user.is_authenticated and product.user == user %}
           <div class="flex space-x-2">
             <a href="{% url 'main:edit_product' product.id %}" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Edit</a>
-            <a href="{% url 'main:delete_product' product.id %}" class="text-sm font-medium text-red-500 hover:text-red-700 transition-colors">Remove</a>
+            <button onclick="showDeleteModal('{{ product.id }}')" class="text-sm font-medium text-red-500 hover:text-red-700 transition-colors">Remove</button>
           </div>
         {% endif %}
       </div>

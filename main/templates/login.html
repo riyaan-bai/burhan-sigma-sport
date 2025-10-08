@@ -13,54 +13,19 @@
         <p class="text-gray-600">Welcome back to Burhan Sigma Sport</p>
       </div>
 
-      <!-- Form Errors Display -->
-      {% if form.non_field_errors %}
-        <div class="mb-6">
-          {% for error in form.non_field_errors %}
-            <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
-              {{ error }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <div id="form-errors" class="mb-6 space-y-2"></div>
 
-      {% if form.errors %}
-        <div class="mb-6">
-          {% for field, errors in form.errors.items %}
-            {% if field != '__all__' %}
-              {% for error in errors %}
-                <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700 mb-2">
-                  <strong>{{ field|title }}:</strong> {{ error }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      <form method="POST" action="" class="space-y-6">
+      <form id="login-form" method="POST" action="{% url 'main:login_ajax' %}" class="space-y-6">
         {% csrf_token %}
         
         <div>
           <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-          <input 
-            id="username" 
-            name="username" 
-            type="text" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-colors" 
-            placeholder="Enter your username">
+          <input id="username" name="username" type="text" required class="w-full ...">
         </div>
 
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <input 
-            id="password" 
-            name="password" 
-            type="password" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-colors" 
-            placeholder="Enter your password">
+          <input id="password" name="password" type="password" required class="w-full ...">
         </div>
 
         <button 
@@ -69,28 +34,7 @@
           Sign In
         </button>
       </form>
-
-      <!-- Messages Display -->
-      {% if messages %}
-        <div class="mt-6">
-          {% for message in messages %}
-            <div 
-              class="
-                px-4 py-3 rounded-md text-sm border
-                {% if message.tags == 'success' %}
-                  bg-blue-50 border-blue-200 text-blue-700
-                {% elif message.tags == 'error' %}
-                  bg-red-50 border-red-200 text-red-700
-                {% else %}
-                  bg-gray-50 border-gray-200 text-gray-700
-                {% endif %}
-              ">
-              {{ message }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-
+      
       <div class="mt-6 text-center pt-6 border-t border-gray-200">
         <p class="text-gray-500 text-sm">
           Don't have an account? 
@@ -102,4 +46,49 @@
     </div>
   </div>
 </div>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const errorContainer = document.getElementById('form-errors');
+    errorContainer.innerHTML = ''; // Bersihkan error sebelumnya
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', 
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) { 
+            if (data.status === 'success') {
+                // Redirect ke halaman utama jika login berhasil
+                window.location.href = data.redirect_url;
+            }
+        } else { 
+            if (data.status === 'error' && data.errors) {
+                const errors = JSON.parse(data.errors);
+                // Menampilkan error non-field
+                if (errors.__all__) {
+                    errors.__all__.forEach(err => {
+                        const errorElement = `<div class="px-4 py-3 rounded text-sm border bg-red-50 border-red-200 text-red-700">${err.message}</div>`;
+                        errorContainer.innerHTML += errorElement;
+                    });
+                }
+            }
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+        const errorElement = `<div class="px-4 py-3 rounded text-sm border bg-red-50 border-red-200 text-red-700">An unexpected error occurred. Please try again.</div>`;
+        errorContainer.innerHTML = errorElement;
+    }
+});
+</script>
 {% endblock content %}

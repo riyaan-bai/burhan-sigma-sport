@@ -1,118 +1,81 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
 <title>Register - Burhan Sigma Sport</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="form-style">
-  <div class="min-h-screen bg-gray-50 flex items-center justify-center p-8">
-    <div class="max-w-md w-full relative z-10">
-      <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-semibold text-gray-900 mb-2">Join Us</h2>
-        <p class="text-gray-500">Create your account</p>
-      </div>
-
-      <!-- Form Errors Display -->
-      {% if form.non_field_errors %}
-        <div class="mb-6">
-          {% for error in form.non_field_errors %}
-            <div class="px-4 py-3 rounded text-sm border bg-red-50 border-red-200 text-red-700">
-              {{ error }}
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+            
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-blue-600">
+                    Create Your Account
+                </h2>
+                <p class="mt-2 text-sm text-gray-600">
+                    Explore your passion for sports with Burhan Sigma Sport
+                </p>
             </div>
-          {% endfor %}
-        </div>
-      {% endif %}
 
-      {% if form.errors %}
-        <div class="mb-6">
-          {% for field, errors in form.errors.items %}
-            {% if field != '__all__' %}
-              {% for error in errors %}
-                <div class="px-4 py-3 rounded text-sm border bg-red-50 border-red-200 text-red-700 mb-2">
-                  <strong>{{ field|title }}:</strong> {{ error }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
+            <div id="form-errors" class="mb-6 space-y-2"></div>
 
-      <form method="POST" action="" class="space-y-5">
-        {% csrf_token %}
-        
-        <div>
-          <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-          <input 
-            id="username" 
-            name="username" 
-            type="text" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 transition duration-200" 
-            placeholder="Choose a username">
-        </div>
-
-        <div>
-          <label for="password1" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <input 
-            id="password1" 
-            name="password1" 
-            type="password" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 transition duration-200" 
-            placeholder="Create a password">
-        </div>
-
-        <div>
-          <label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-          <input 
-            id="password2" 
-            name="password2" 
-            type="password" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 transition duration-200" 
-            placeholder="Confirm your password">
-        </div>
-
-        <button 
-          type="submit" 
-          class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
-          Create Account
-        </button>
-      </form>
-
-      <!-- Messages Display -->
-      {% if messages %}
-        <div class="mt-6">
-          {% for message in messages %}
-            <div 
-              class="
-                px-4 py-3 rounded text-sm border
-                {% if message.tags == 'success' %}
-                  bg-blue-50 border-blue-200 text-blue-700
-                {% elif message.tags == 'error' %}
-                  bg-red-50 border-red-200 text-red-700
-                {% else %}
-                  bg-gray-50 border-gray-200 text-gray-700
-                {% endif %}
-              ">
-              {{ message }}
+            <form id="register-form" method="POST" action="{% url 'main:register_ajax' %}" class="space-y-5">
+                {% csrf_token %}
+                
+                {{ form.as_p }}
+                
+                <button type="submit" class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center pt-6 border-t border-gray-200">
+                <p class="text-gray-500 text-sm">
+                    Already have an account? 
+                    <a href="{% url 'main:login' %}" class="text-blue-600 hover:text-blue-700 font-medium">
+                        Sign In
+                    </a>
+                </p>
             </div>
-          {% endfor %}
-        </div>
-      {% endif %}
 
-      <div class="mt-6 text-center">
-        <p class="text-gray-500 text-sm">
-          Already have an account? 
-          <a href="{% url 'main:login' %}" class="text-blue-600 hover:text-blue-700 font-medium">
-            Sign In
-          </a>
-        </p>
-      </div>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<script>
+document.getElementById('register-form').addEventListener('submit', async function(event) {
+    // ... (kode AJAX Anda tidak perlu diubah) ...
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Definisikan class Tailwind yang ingin diterapkan
+    const tailwindInputClasses = "w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors";
+
+    // Ambil semua elemen <input> di dalam form registrasi
+    const inputs = document.querySelectorAll('#register-form input');
+
+    // Terapkan class ke setiap input
+    inputs.forEach(input => {
+        input.className = tailwindInputClasses;
+        // Tambahkan placeholder berdasarkan nama field
+        if (input.name === 'username') {
+            input.placeholder = 'Choose a username';
+        } else if (input.name === 'password1') {
+            input.placeholder = 'Create a password';
+        } else if (input.name === 'password2') {
+            input.placeholder = 'Confirm your password';
+        }
+    });
+
+    // Menghilangkan label dan <br> bawaan Django yang berantakan
+    const formContainer = document.querySelector('#register-form');
+    formContainer.querySelectorAll('label, br').forEach(element => {
+        element.remove();
+    });
+});
+</script>
 {% endblock content %}
